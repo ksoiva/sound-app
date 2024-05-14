@@ -10,14 +10,14 @@ from st_audiorec import st_audiorec
 
 from st_supabase_connection import SupabaseConnection
 
+st. set_page_config(layout="wide")
+
 # Initialize connection.
 conn = st.connection("supabase",type=SupabaseConnection)
 
 TIMES = ("morning", "afternoon", "evening", "night")
 CLASSES = ("dog_bark", "children_playing", "air_conditioner", "street_music", "engine_idling", "jackhammer", "drilling", "siren", "car_horn")
 
-
-st. set_page_config(layout="wide")
 dataset = DataSet("D:\\диплом(\\app\\prepared_data.csv")
 # dataset.df
 
