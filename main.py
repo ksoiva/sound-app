@@ -18,7 +18,7 @@ conn = st.connection("supabase",type=SupabaseConnection)
 TIMES = ("morning", "afternoon", "evening", "night")
 CLASSES = ("dog_bark", "children_playing", "air_conditioner", "street_music", "engine_idling", "jackhammer", "drilling", "siren", "car_horn")
 
-dataset = DataSet("D:\\диплом(\\app\\prepared_data.csv")
+dataset = DataSet("prepared_data.csv")
 # dataset.df
 
 map = Map(dataset, 1, CLASSES, TIMES,)
