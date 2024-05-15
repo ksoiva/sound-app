@@ -17,7 +17,6 @@ class Map:
             zoom = 12.5,
             pitch = 50,
             bearing = 0,
-            height = 800
         ),
         layers=[
             pdk.Layer(
@@ -56,5 +55,5 @@ class Map:
         self.deck.layers[0].data = filtered_df
         return filtered_df
     
-    
+
         
