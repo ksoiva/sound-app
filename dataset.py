@@ -11,6 +11,7 @@ class DataSet:
         response = db.table('sound_count_view').select("*").execute()
 
         self.tb = pd.DataFrame(response.data)
+        self.data = pd.DataFrame(db.table("dataset_view").select("*").execute().data)
 
     
     def get_filtered_data(self, classes, times):
@@ -21,7 +22,7 @@ class DataSet:
         filtered_df = pd.DataFrame(columns=['latitude', 'longitude'] + list(CLASSES))
 
         # Filter the DataFrame by the given classes
-        filtered_df[['latitude', 'longitude', 'time_period']] = self.tb[['latitude', 'longitude', 'time_period']]
+        filtered_df[['latitude', 'longitude', 'time_period', 'date']] = self.tb[['latitude', 'longitude', 'time_period', 'date']]
 
         for class_name in classes:
             filtered_df[class_name] = self.tb[class_name]
