@@ -9,8 +9,8 @@ from tensorflow.keras import layers, models, callbacks
 
 class NeuralNetwork:
     def __init__(self):
-        with open('neural_network_model.keras', 'rb') as file:
-            self.model = load_model(file)
+
+        self.model = load_model('neural_network_model.keras')
 
     def classify(self, audio_record):
         data_to_predict = self.get_data_from_audio(audio_record)
