@@ -2,3 +2,4 @@ streamlit-audiorec
 st-supabase-connection
 librosa
 tensorflow
+xgboost
