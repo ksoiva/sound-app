@@ -1,5 +1,5 @@
 streamlit-audiorec
 st-supabase-connection
 librosa
-tensorflow=2.15.0
+tensorflow==2.15.0
 xgboost
