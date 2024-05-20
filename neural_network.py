@@ -10,7 +10,7 @@ from tensorflow.keras import layers, models, callbacks
 class NeuralNetwork:
     def __init__(self):
 
-        self.model = load_model('neural_network_model.keras')
+        self.model = load_model('neural_network_model.keras', custom_objects={'Conv2D': layers.Conv2D})
 
     def classify(self, audio_record):
         data_to_predict = self.get_data_from_audio(audio_record)
