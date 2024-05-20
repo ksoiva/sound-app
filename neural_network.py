@@ -6,6 +6,9 @@ from io import BytesIO
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+
 class NeuralNetwork:
     def __init__(self):
 
