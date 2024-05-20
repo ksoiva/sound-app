@@ -12,8 +12,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 class NeuralNetwork:
     def __init__(self):
 
-        self.model = load_model('neural_network_model.keras', compile=False)
-        self.model.load_weights('neural_network_model_weights.h5')
+        self.model = load_model('neural_network_model.keras')
 
     def classify(self, audio_record):
         data_to_predict = self.get_data_from_audio(audio_record)
