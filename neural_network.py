@@ -5,12 +5,14 @@ from io import BytesIO
 
 import tensorflow as tf
 from tensorflow.keras.models import load_model
-from tensorflow.keras import layers, models, callbacks
+from keras.utils.generic_utils import get_custom_objects
 
 class NeuralNetwork:
     def __init__(self):
 
-        self.model = load_model('neural_network_model.keras', custom_objects={'Conv2D': layers.Conv2D})
+        custom_objects = get_custom_objects()
+
+        self.model = load_model('neural_network_model.keras', custom_objects=custom_objects)
 
     def classify(self, audio_record):
         data_to_predict = self.get_data_from_audio(audio_record)
