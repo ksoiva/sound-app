@@ -29,7 +29,8 @@ class Map:
             )
         ],
         tooltip= {
-            "html": "<b>Sounds:</b> {total}<br>"
+            "html": "<b>Location:</b> {longitude}, {latitude}<br>"
+                  +"<b>Sounds:</b> {total}<br>"
                   + "<b>dog bark:</b>    {dog_bark}<br>"
                   + "<b>clidren play:</b>    {children_playing}<br>"
                   + "<b>air conditioner:</b>    {air_conditioner}<br>"
