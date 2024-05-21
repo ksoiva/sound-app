@@ -16,3 +16,4 @@ tensorflow==2.15.0
 tensorflow-estimator==2.15.0
 tensorflow-io-gcs-filesystem==0.31.0
 xgboost==2.0.3
+streamlit_js_eval
