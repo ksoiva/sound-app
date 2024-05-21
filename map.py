@@ -32,7 +32,7 @@ class Map:
             "html": "<b>Location:</b> {longitude}, {latitude}<br>"
                   +"<b>Sounds:</b> {total}<br>"
                   + "<b>dog bark:</b>    {dog_bark}<br>"
-                  + "<b>clidren play:</b>    {children_playing}<br>"
+                  + "<b>children play:</b>    {children_playing}<br>"
                   + "<b>air conditioner:</b>    {air_conditioner}<br>"
                   + "<b>street music:</b>    {street_music}<br>"
                   + "<b>engine idling:</b>    {engine_idling}<br>"
