@@ -10,6 +10,8 @@ from dataset import DataSet
 from standart_model import StandartModel
 from neural_network import NeuralNetwork
 
+from streamlit_js_eval import get_geolocation
+
 st. set_page_config(layout="wide")
 
 db: Client = create_client(st.secrets["SUPABASE_URL"], 
@@ -22,7 +24,7 @@ CLASSES = st.session_state.classes
 
 
 def get_dataset():
-    dataset = DataSet(db)
+    dataset = DataSet(db, CLASSES)
     st.session_state.dataset = dataset 
     return st.session_state.dataset
 
@@ -85,15 +87,15 @@ def main():
 
     form_class = sound_container.form('classification_form')
 
+    class_results = ""
+
     with form_class:
 
-        classf1,d1, classf2,d2, classf3 = st.columns([3, 1, 3, 1, 3])
-
+        classf1,_, classf2,_, classf3 = st.columns([5, 0.5, 4, 1.5, 4])
+        st.session_state.select_disabled = True
         with classf1:
             st.subheader("Record your sounds")
             wav_audio_data = st_audiorec()
-            if 'sound_record' not in st.session_state or st.session_state.sound_record is None:
-                st.session_state.sound_record = classf1
 
         with classf2:
             st.subheader("Choose the model")
@@ -102,19 +104,36 @@ def main():
             ("XGBClassifier", "Neural network"),
             index=None,
             label_visibility='collapsed',
-            placeholder="Select model..."
+            placeholder="Select model...", 
         )
 
         with classf3:
             st.subheader("Get the results")
             if st.form_submit_button('Classify'):
-                class_results = standart_model.classify(wav_audio_data)
-                st.session_state.class_results = class_results
+                if(wav_audio_data is None):
+                    st.info('You need to record audio for the classification', icon="ℹ️")
+                else:
+                    if(model == "Neural network"):
+                        class_results = tb.get_classes_result(neural_network.classify(wav_audio_data))
+                    elif(model == "XGBClassifier"):
+                        class_results = tb.get_classes_result(standart_model.classify(wav_audio_data))
+                    else:
+                        st.info('You need to select model for the classification', icon="ℹ️")
+                if (len(class_results)==0):
+                    st.info('No sounds found', icon="ℹ️")
+                else:
+                    st.session_state.class_results = class_results
             if 'class_results' in st.session_state:
-                st.session_state.class_results
-
-
-
+                st.write("Sounds found:")
+                st.dataframe(pd.DataFrame(st.session_state.class_results))
+                if st.form_submit_button("Save to db"):
+                    loc = get_geolocation()
+                    if(loc == None):
+                        st.info('Please allow checking your location', icon="ℹ️")
+                    else:
+                        lat = loc["coords"]["latitude"]
+                        long = loc["coords"]["longitude"]
+                        tb.insert_data(long, lat, st.session_state.class_results)
 
 
     #STATISTICS BLOCK
@@ -126,7 +145,7 @@ def main():
     statistic_container = st.container()
 
     statistic_container.header('Data', divider='red')
-    c1, metrics_container, c2 = statistic_container.columns([1, 3, 1])
+    _, metrics_container, _ = statistic_container.columns([1, 3, 1])
 
 
     date1, date2 = metrics_container.columns([1, 1])
@@ -172,7 +191,8 @@ def main():
     form_data = statistic_container.form('dataset_form')
     with form_data:
         st.dataframe(tb.data, use_container_width = True)
-        if st.form_submit_button('Update'):
+        _, update_button, _ = st.columns([1.75, 1, 1])
+        if update_button.form_submit_button('Update'):
             get_dataset()
 
     

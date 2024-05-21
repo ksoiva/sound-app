@@ -1,8 +1,4 @@
-import streamlit as st
 import pydeck as pdk
-import pandas as pd
-import numpy as np
-import colorsys
 
 class Map:
     def __init__(self, dataset, opacity, classes, times):
